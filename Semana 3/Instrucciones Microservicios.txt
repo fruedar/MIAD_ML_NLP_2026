@@ -1,0 +1,56 @@
+###########################################################################################################
+Configurar API 2025
+###########################################################################################################
+1. Crear cuenta en AWS y crear instancia
+2. Nueva EC2: Lanzar instancia -> Dar Nombre -> Ubuntu -> 
+	t3.micro -> Ubuntu Server 24.04 LTS (HVM),EBS General Purpose (SSD)
+3. Descargar key de seguridad (archivo .pem) al crear la instancia y guardarlo en una ubicación conocida
+4.Configure storage: 8GB
+5. Abrir puerto: Seguridad -> Grupos de seguridad -> Reglas de entrada -> TCP personalizado -> 
+	Puerto 5000 -> Origen 0.0.0.0/0
+6. Conectar a la instancia
+7. En la consola:
+	sudo apt update
+	sudo apt install python3-pip
+	pip3 install pandas
+	pip3 install scikit-learn
+	pip3 install joblib
+	pip3 install flask
+	pip3 install flask_restx
+	pip3 install flask_cors
+
+	#Si no deja instalar los paquetes
+	python3 -m pip config debug
+	sudo nano /etc/pip.conf
+	[global]
+	break-system-packages=true 
+	
+	#Ctrl + X -> Y -> Enter ->pip3 install xyz
+
+8. Clonar repositorio
+	git clone https://github.com/fruedar/MIAD_ML_NLP_2025
+9. Ir a la carpeta 
+	cd MIAD_ML_NLP_2025/model_deployment
+10. Desplegar API
+	python3 api.py
+	(ctrl+c) para detener la API
+
+11.Abrir la API utilizando DNS de IPv4 pública (cambia cada vez)
+ec2-3-137-168-86.us-east-2.compute.amazonaws.com:5000/
+ec2-3-137-168-86.us-east-2.compute.amazonaws.com:5000/predict/?URL=http://consultoriojuridico.co/pp/www.paypal.com/
+
+###########################################################################################################
+LINUX
+###########################################################################################################
+#Change current directory
+cd 
+#Fies in directory
+ls
+# Delete repository
+rm -r MIAD_ML_NLP_2025
+
+#Update repo
+cd MIAD_ML_NLP_2025
+git pull origin main
+	
+	
