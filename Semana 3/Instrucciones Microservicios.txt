@@ -1,17 +1,24 @@
 ###########################################################################################################
-Configurar API 2025
+Configurar API 2026
 ###########################################################################################################
 1. Crear cuenta en AWS y crear instancia
 2. Nueva EC2: Lanzar instancia -> Dar Nombre -> Ubuntu -> 
 	t3.micro -> Ubuntu Server 24.04 LTS (HVM),EBS General Purpose (SSD)
-3. Descargar key de seguridad (archivo .pem) al crear la instancia y guardarlo en una ubicación conocida
+3. Descargar key de seguridad (archivo .pem) al crear la instancia y guardarlo en una ubicación conocida (solo si se va a conectar desde local)
 4.Configure storage: 8GB
-5. Abrir puerto: Seguridad -> Grupos de seguridad -> Reglas de entrada -> TCP personalizado -> 
-	Puerto 5000 -> Origen 0.0.0.0/0
+LAUNCH INSTANCE
+5. Abrir puerto: Seguridad -> Grupos de seguridad -> Reglas de entrada (dar click) -> Editar reglas de entrada -> Agregar regla: TCP personalizado -> Puerto 5000 -> Origen 0.0.0.0/0
 6. Conectar a la instancia
 7. En la consola:
 	sudo apt update
 	sudo apt install python3-pip
+
+	#Si no deja instalar los paquetes (PEP668)
+	sudo apt install python3.12-venv # si venv no esta instalado
+
+	python3 -m venv ~/myenv
+	source ~/myenv/bin/activate
+
 	pip3 install pandas
 	pip3 install scikit-learn
 	pip3 install joblib
@@ -19,7 +26,7 @@ Configurar API 2025
 	pip3 install flask_restx
 	pip3 install flask_cors
 
-	#Si no deja instalar los paquetes
+	#Si aun no deja instalar los paquetes
 	python3 -m pip config debug
 	sudo nano /etc/pip.conf
 	[global]
@@ -28,29 +35,33 @@ Configurar API 2025
 	#Ctrl + X -> Y -> Enter ->pip3 install xyz
 
 8. Clonar repositorio
-	git clone https://github.com/fruedar/MIAD_ML_NLP_2025
+	git clone https://github.com/fruedar/MIAD_ML_NLP_2026
 9. Ir a la carpeta 
-	cd MIAD_ML_NLP_2025/model_deployment
+	cd MIAD_ML_NLP_2026/model_deployment
 10. Desplegar API
 	python3 api.py
 	(ctrl+c) para detener la API
 
-11.Abrir la API utilizando DNS de IPv4 pública (cambia cada vez)
-ec2-3-137-168-86.us-east-2.compute.amazonaws.com:5000/
-ec2-3-137-168-86.us-east-2.compute.amazonaws.com:5000/predict/?URL=http://consultoriojuridico.co/pp/www.paypal.com/
+11.Abrir la API utilizando DNS de IPv4 pública (cambia cada vez) # ingresar con http no con https
+http://ec2-3-137-168-86.us-east-2.compute.amazonaws.com:5000/
+http://ec2-3-137-168-86.us-east-2.compute.amazonaws.com:5000/predict/?URL=http://consultoriojuridico.co/pp/www.paypal.com/
+
+#El .pkl solo se puede leer con sklearn 1.02
+pip install scikit-learn==1.0.2
+
 
 ###########################################################################################################
 LINUX
 ###########################################################################################################
 #Change current directory
 cd 
-#Fies in directory
+#Files in directory
 ls
 # Delete repository
 rm -r MIAD_ML_NLP_2025
 
 #Update repo
-cd MIAD_ML_NLP_2025
+cd MIAD_ML_NLP_2026
 git pull origin main
 	
 	
